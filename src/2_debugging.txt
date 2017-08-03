@@ -1,0 +1,28 @@
+*** BUGS ***
+
+- SEARCH FEATURE: runtime exception when user presses CANCEL while searching password
+
+- SEARCH FEATURE: handle case when user does not write input search but presses OK to search (program will display "No password    found"). It should display "Enter password to search or CANCEL"
+
+- SEARCH FEATURE: when using search feature, user account input must be parsed to case insensitive
+
+
+
+*** FIXED BUGS ***
+- RANDOMIZER: dispose() to randomizer window (not main app window) if incorrect input
+
+- RANDOMIZER: handle case when user leaves lenght field blank
+
+- ADD PASSWORD: each new password entry should be written to a new line in the text file. Instead, it's writting all entries in same line.
+
+- RANDOMIZING FEATURE: when using randomizing feature, program crashes if user leaves "lenght of password" field empty - despite the fact that there is a condition that gives alert if so happens - fixed with try catch block to handle empty jtextfield not converting to int
+
+- PASSWORD SEARCHING: algorithm to search for password not working properly
+
+- When adding a new password entry, if use does not enter all 4 fields, program writes black space as input despite showing error message each time a field is left blank
+
+- when randomizing, user had to select either alpha-numeric or alpha-numeric/symbols. Program would crash if user forgot to select radio button. Fixed by having alpha-numeric option preselected when prgram runs
+
+- when running the program for first time, there is not a output file where passwords are stored - if user clicks "Get passwords" button, program would crash. Fixed by forcing user to add password first - will show error message if !(file.exists()) - and tells user to click "add password" button 
+
+-

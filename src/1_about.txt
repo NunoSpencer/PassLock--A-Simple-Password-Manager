@@ -1,0 +1,11 @@
+PASSLOCK V1.0
+
+A simple password manager using Java SWING and Netbeans IDE - keeps list of passwords in a text file, located in "Documents" folder (Windows)
+
+DOWNLOAD at www.nunospencer.com
+
+Report bugs, suggested improvements at www.nunospencer.com/#contact
+
+***DISCLAIMER*** Passwords are kept in plain text - no encryption is used. The app is for demonstration purposes only, and although it works as intended, I am not responsible for privacy/security issues that may arise from use. USE AT YOUR OWN DISCRETION.
+
+
