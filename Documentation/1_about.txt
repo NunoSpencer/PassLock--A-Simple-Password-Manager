@@ -1,0 +1,46 @@
+www.nunospencer.com/PassLock v1.0
+
+PASSLOCK V1.0
+
+
+- A simple password manager using Java SWING and Netbeans IDE - 
+
+Are you having a hard time keeping track of all your passwords? Our ever-increasing dependence on the internet 
+and digital devices has simplified many aspects of our lives. However, as we move more of our lives and personal 
+information onto the web it becomes more cumbersome to manage the ever increasing amounts of passwords we must memorize.
+
+PassLock v1.0 provides an interface 
+for quickly adding and retrieving passwords and account information on your local machine. 
+Upon adding a password, a .txt file named "my_passwords" is created on your local machine, in the "Documents" folder (Windows).
+The file contains your added passwords and associated information such as account, username and email. Note that 
+if the file is moved or renamed, you will not be able to retrieve it using PassLock v1.0. (An error message will be showed). 
+
+NO INSTALL REQUIRED, JUST DOWNLOAD THE FILE AND RUN - PassLock v1.0 was written in JAVA and runs in your computer by using JRE - Java Runtime Environment. If you do not
+have JRE in your computer you may download and install it by clicking HERE. https://java.com/en/download/
+
+NOTE: Java technology allows you to run applications in a secure computing environment. Upon downloading the file you 
+may be asked to confirm executing the file. It is completely safe to do so. *** Please see disclaimer below ***
+
+DOWNLOAD at www.nunospencer.com/PassLockv1.0
+
+(Read why you should not use the same password for different accounts, here http://blog.privatewifi.com/building-better-passwords/)
+
+FEATURES:
+
+PASSWORD RANDOMIZER - Can't think of a password for your account? Use the randomizer to generate passwords. By default, generated passwords are alphanumeric,
+including upper and lower case letters. Alternatively, you can choose to add symbols by selecting "Alphanumeric + Symbol". You may choose how long your 
+passwords may be (minimum 8 characters, maximum 12).
+
+PASSWORD SEARCH - You may be able to retrieve your passwords by clicking the magnifying glass button. To quickly find a password, input a password's
+associated account in the text-field and click the magnifying glass. Alternatevily, if you click the magnifying glass without inputing its account, a window 
+will pop-up so to input the password's associated account. 
+
+
+
+***DISCLAIMER*** Although fully functional, PassLock v1.0 was created for demonstration purposes only. Please be aware that passwords are kept in a plain text
+file in your local machine - NO ENCRYPTATION IS USED. I AM NOT RESPONSIBLE FOR PRIVACY OR SECURITY ISSUES THAT MAY ARISE FROM YOUR USE OF THIS APPLICATION. USE AT YOUR OWN DISCRETION.
+
+You may report bugs or suggest improvements at www.nunospencer.com/#contact
+
+Thanks for using PassLock v1.0!!
+Nuno Spencer @2017

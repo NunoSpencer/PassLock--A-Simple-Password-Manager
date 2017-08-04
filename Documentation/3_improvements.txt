@@ -1,0 +1,29 @@
+*** SUGGESTED IMPROVEMENTS ***
+
+navigation - add a "File" menu that includes: | "About"
+               - "Add New"                    | - "About"
+               - "Get File"                   |
+               - "Search"                     | "About PassLock v1.0
+               - "Randomizer"                 |  A simple password manager using Java SWING and Netbeans IDE. 
+               - "Exit"                       |  Do you have many accounts and have hard time keeping all your passwords at hand? 
+                                                 PassLock v1.0 provides an interface for quickly adding and 
+                                                 retrieving passwords and account information on your local machine. 
+                                                 www.nunospencer.com/PassLockV1
+                                                 Thanks for using! Nuno Spencer @2017
+                                                 
+
+
+
+FIND PASSOWRD - found passwords are displayed in message pane similar to Add Password Confirmation pane
+
+FIND PASSOWRD - "FIND" button is disable as long text-field is empty. If user enter input on text-field, "FIND" button becomes enabled.
+
+ADD PASSWORD - keep a counter to number of passwords added (in terms of given account). If (count >= 2) display error message. (this is useful for searching purposes as descreases risk of stack overflow)
+
+ADD PASSWORD - user may not have 'username' associated with an account. If user leaves "username" field empty, the program automatically add "none" to the field.
+
+ADD PASSWORD - allow user to select where to save .txt file containing passwords (file is created by default in "Documents" folder)
+
+Update Version(v2.0) - On MAIN window, include a TABLE that displays the passwords already on file. If nothing on file, table is empty.
+
+Update Version(v2.0) - ADD encryptation

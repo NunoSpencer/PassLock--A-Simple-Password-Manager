@@ -143,7 +143,6 @@ public class RANDOMIZE_dialogBox_v1 extends javax.swing.JDialog {
         //
     }//GEN-LAST:event_randomizePassLenghtTextField_v1ActionPerformed
     
-    
     private void randomizeCancelBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_randomizeCancelBtnActionPerformed
         dispose();
     }//GEN-LAST:event_randomizeCancelBtnActionPerformed
@@ -171,36 +170,25 @@ public class RANDOMIZE_dialogBox_v1 extends javax.swing.JDialog {
      
     //method that generates randomized password when user clicks "Generate" button
     private void randomizeGenerateBtn1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_randomizeGenerateBtn1ActionPerformed
-        //the following code generates the random password and displays it on a popu-up dialog - all exceptions are caugth inside this try-catch bloc (namely if user does not provide lenght of password)
-        try{
+        try
+        {
             int lenghtByUserParsed = Integer.parseInt(randomizePassLenghtTextField_v1.getText()); 
             String passwordGeneratedMix = generatedPasswordMIXCase(lenghtByUserParsed);
             String passwordGeneratedMixSymbol = generatedPasswordMIXCaseSymbol(lenghtByUserParsed);
                                 
-            if(MixCaseOpt_RadBtn.isSelected())
-            {                               
-                if((lenghtByUserParsed < 8) || (lenghtByUserParsed > 12))
-                {
-                    JOptionPane.showMessageDialog(null, "Lenght must be 8-12 digits!", "Invalid Lenght!", JOptionPane.ERROR_MESSAGE);   //handles case lenght of password is invalid
-                    randomizePassLenghtTextField_v1.setText("8");
-                }
-                else
-                {
-                    CreateOutDialog(passwordGeneratedMix);                                                 
-                    dispose();
-                }
+            if(((lenghtByUserParsed < 8) || (lenghtByUserParsed > 12)))
+            {
+                JOptionPane.showMessageDialog(null, "Lenght must be 8-12 digits!", "Invalid Lenght!", JOptionPane.ERROR_MESSAGE);
+                randomizePassLenghtTextField_v1.setText("8");
+                
+            }else if(MixCaseOpt_RadBtn.isSelected())
+            {
+                CreateOutDialog(passwordGeneratedMix);                                                 
+                dispose();
             }else if(MixSymbolOpt_RadBtn.isSelected())
             {
-                if((lenghtByUserParsed < 8) || (lenghtByUserParsed > 12))
-                {
-                    JOptionPane.showMessageDialog(null, "Lenght must be 8-12 digits! ", "ERROR! Invalid lenght!", JOptionPane.ERROR_MESSAGE);
-                    randomizePassLenghtTextField_v1.setText("8");
-                }
-                else
-                { 
-                    CreateOutDialog(passwordGeneratedMixSymbol);
-                    dispose();
-                }
+                CreateOutDialog(passwordGeneratedMixSymbol);
+                dispose();
             }
         }catch(NumberFormatException ex){
             JOptionPane.showMessageDialog(null, "A lenght is required. " + "\n" + "Enter a password lengtht!", "Invalid Lenght" ,JOptionPane.ERROR_MESSAGE);  //if textfield left blank, show error message
