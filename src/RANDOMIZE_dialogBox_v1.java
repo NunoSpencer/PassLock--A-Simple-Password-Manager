@@ -192,6 +192,7 @@ public class RANDOMIZE_dialogBox_v1 extends javax.swing.JDialog {
             }
         }catch(NumberFormatException ex){
             JOptionPane.showMessageDialog(null, "A lenght is required. " + "\n" + "Enter a password lengtht!", "Invalid Lenght" ,JOptionPane.ERROR_MESSAGE);  //if textfield left blank, show error message
+            randomizePassLenghtTextField_v1.requestFocusInWindow();
         }
     }//GEN-LAST:event_randomizeGenerateBtn1ActionPerformed
 

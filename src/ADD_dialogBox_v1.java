@@ -3,8 +3,13 @@
 import java.io.IOException;
 import java.io.BufferedWriter;
 import java.io.File;
+import java.io.FileNotFoundException;
 import java.io.FileWriter;
 import java.io.Writer;
+import java.util.Scanner;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.swing.ImageIcon;
 //import java.io.Writer;
 //import java.io.PrintWriter;
 import javax.swing.JOptionPane;
@@ -147,49 +152,88 @@ public class ADD_dialogBox_v1 extends javax.swing.JDialog {
         return result.toString();
     }*/
     
+    //method to force user to enter 5 SAME accounts only.. this prevents displaying excess same accounts when searching (avoids output window of search to be immensely large)
+    //upon clicking "ADD" a search is performed in the password's file.. if there exists 5 entries w/ same accounts, user is blocked from entering another... otherwise procees to add
+    private int searchFile(String givenAccnt)
+    {
+        givenAccnt = sourceTextField.getText();                                 //user's "account" input 
+        String accntToken;                                                      //first string token of a line, i.e. "account"
+        String getLine;                                                         //this is the line that contains the password the user is looking for. There may be +1 lines thus I have to return them all.*** must use ArrayList of strings (lines of strings) instead of Array
+        int i;                                                                  //delineator... finds index of 1st space " " on that line  (or try ' '), so we can get to the 1st token of a line i.e. "account"
+        int v = 0;    
+        try
+        {
+            Scanner scan = new Scanner(targetFile);                             //scanner for target file
+            while(scan.hasNextLine())                                           //while lines are being scanned ----- until end of line
+            {
+                getLine = scan.nextLine();                                      //gets a line
+                i = getLine.indexOf(" ");                                       //get index of substring (account) token
+                accntToken = getLine.substring(0, i);                           //gets the account (1st string token in the line, after " ")                        
+                if(givenAccnt.equalsIgnoreCase(accntToken))                     //if given input account equals the account on the line 
+                {     
+                    v++;                                                        //increment counter for each repeat account
+                }
+            }
+        }catch(FileNotFoundException ex) 
+        {
+            Logger.getLogger(PassLock_Main.class.getName()).log(Level.SEVERE, null, ex);
+            JOptionPane.showMessageDialog(null, "Error processing file!", "ERROR!" ,JOptionPane.ERROR_MESSAGE);
+        }
+        
+        return v;                                                               //return total number of repeat accounts
+    } 
+    
     private void addPasswordBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_addPasswordBtnActionPerformed
-        //String[] userInfo = new String[4]; this is declared as PUBLIC on the bottom together with other objects declaration. An string-array stores the 4 input data from user: account, username, password, email        
         userInfo[0] = sourceTextField.getText();
         userInfo[1] = usernameTextField.getText();
         userInfo[2] = passwordTextField.getText();    
         userInfo[3] = emailTextField.getText();
         if(userInfo[0].equals(""))
         {
-            //userInfo[0] = JOptionPane.showInputDialog(null, "An ACCOUNT is required. Enter the account associated with the password you wish to save."); //adds missing input directly into textfield
             JOptionPane.showMessageDialog(null, "An ACCOUNT is required. Enter the account associated with the password you wish to save.", "Missing \"ACCOUNT\" information!", HEIGHT);
+            sourceTextField.requestFocusInWindow();
         }
         else if(userInfo[1].equals(""))
         {
-            //userInfo[1] = JOptionPane.showInputDialog(null, "An USERNAME is required. Enter the username associated with the password you wish to save.");
             JOptionPane.showMessageDialog(null, "An USERNAME is required. Enter the username associated with the password you wish to save.", "Missing \"USERNAME\" information!", HEIGHT);
+            usernameTextField.requestFocusInWindow();
         }
         else if(userInfo[2].equals(""))
         {
-            //userInfo[2] = JOptionPane.showInputDialog(null, "A PASSWORD is required. Enter the password you wish to save.");
             JOptionPane.showMessageDialog(null, "A PASSWORD is required. Enter the password you wish to save.", "Missing \"PASSWORD\" information!" ,HEIGHT);
+            passwordTextField.requestFocusInWindow();
         }
         else if(userInfo[3].equals(""))
         {
-            //userInfo[3] = JOptionPane.showInputDialog(null, "An EMAIL is required. Enter the email associated with account's password.");
              JOptionPane.showMessageDialog(null, "An EMAIL is required. Enter the email associated to account's password.", "Missing \"EMAIL\" information!", HEIGHT);
+             emailTextField.requestFocusInWindow();
         }
-        //else dispose();
- 
-        else try{
-            FileWriter fw = new FileWriter(new File("C:\\Users\\Nuno\\Documents\\my_passwords.txt"), true); //this automatically creates my_passwords.txt file. A mod to this is allowing the user to choose where to create the file
-            //BufferedWriter out = new BufferedWriter(fw);
-            try (Writer output = new BufferedWriter(fw)) 
-            {
-                for (String userInfo1 : userInfo) //output all 4 strings from the array to the file my_passwords.txt
+        else 
+        {
+            try{
+                FileWriter fw = new FileWriter(new File("C:\\Users\\Nuno\\Documents\\my_passwords.txt"), true);             //this automatically creates my_passwords.txt file. A mod to this is allowing the user to choose where to create the file
+                
+                if(searchFile(userInfo[0]) >= 5)            //upon adding new password, the file is searched (note: the file must exist before it is search).. if more than 5 same accounts are already in file, block
                 {
-                    output.write(userInfo1 + " ");
+                    JOptionPane.showMessageDialog(null, "A maximum of 5 passwords per account can be added." + "\n" + "There are already 5 password entries for \"" + userInfo[0] + "\" on file.", "Password Entries Exceeded!" ,JOptionPane.ERROR_MESSAGE, ErrorIcon);
+                    dispose();
+                }else
+                { 
+                    try (Writer output = new BufferedWriter(fw)) 
+                    {
+                        for (String userInfo1 : userInfo)                       //output all 4 strings from the array to the file my_passwords.txt
+                        {
+                            output.write(userInfo1 + " ");
+                        }
+                        output.write(System.getProperty("line.separator"));
+                        JOptionPane.showMessageDialog(null, "DONE!" + "\n" + "\n"+ "Click \"GET PASSWORDS\" to retrieve your passwords!", "Password Added!",  JOptionPane.INFORMATION_MESSAGE, checkMarkIcon);
+                        dispose();
+                    }   
                 }
-                output.write(System.getProperty("line.separator"));
-                JOptionPane.showMessageDialog(addPasswordBtn, "DONE!" + "\n" + "\n"+ "Click \"GET PASSWORDS\" to retrieve your passwords!");
-                dispose();
-            }
-        }catch (IOException e){
-            JOptionPane.showMessageDialog(null, "Error! No File Found.");
+            }catch (IOException e)
+            {
+              JOptionPane.showMessageDialog(null, "Error! No File Found.");
+            }   
         }
     }//GEN-LAST:event_addPasswordBtnActionPerformed
 
@@ -241,8 +285,10 @@ public class ADD_dialogBox_v1 extends javax.swing.JDialog {
         });
     }
     
-    public String[] userInfo = new String[4];
-    public File targetFile = new File("C:\\Users\\Peace Infinity\\Desktop\\[programming]Projects\\DataFiles\\PasswordRepository_test.txt");
+    private final ImageIcon ErrorIcon = new ImageIcon(getClass().getResource("/red_cross50x50.png"));
+    private final ImageIcon checkMarkIcon = new ImageIcon(getClass().getResource("/checked50x50.png"));
+    private final String[] userInfo = new String[4];
+    private final File targetFile = new File("C:\\Users\\Nuno\\Documents\\my_passwords.txt");
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton addPasswordBtn;
     private javax.swing.JButton cancelBtn;

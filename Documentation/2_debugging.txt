@@ -1,14 +1,20 @@
 *** BUGS ***
 
-- SEARCH FEATURE: runtime exception when user presses CANCEL while searching password
+- GET FILE: file still opens when user closes file location
 
-- SEARCH FEATURE: handle case when user does not write input search but presses OK to search (program will display "No password    found"). It should display "Enter password to search or CANCEL"
-
-- SEARCH FEATURE: when using search feature, user account input must be parsed to case insensitive
+- SEARCH FEATURE: # of same found passwords must be displayed on custom jtextarea(on custom JDialog). Stylize the JTextArea to appear as label
 
 
 
 *** FIXED BUGS ***
+
+- SEARCH FEATURE: runtime exception when user presses CANCEL while searching password
+
+- SEARCH FEATURE: when using search feature, user account input must be parsed to case insensitive **** fixed using .equalsIgnoreCase()
+
+- SEARCH FEATURE: handle case when user does not write input search but presses OK to search (program will display "No password  found"). It should display
+  "Enter password to search or CANCEL" **** fixed by disabling FIND button until input is written to textfield (used DocumentListener() on the textfield)
+
 - RANDOMIZER: dispose() to randomizer window (not main app window) if incorrect input
 
 - RANDOMIZER: handle case when user leaves lenght field blank

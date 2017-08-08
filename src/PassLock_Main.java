@@ -3,9 +3,12 @@ import java.awt.Desktop;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.ListIterator;
 import java.util.Scanner;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.ImageIcon;
 import javax.swing.JFileChooser;
 import javax.swing.JOptionPane;
 import javax.swing.event.DocumentEvent;
@@ -32,8 +35,7 @@ import javax.swing.event.DocumentListener;
 
 public class PassLock_Main extends javax.swing.JFrame {
     
-    File file = new File("C:\\Users\\Nuno\\Documents\\my_passwords.txt"); // THIS WILL BE CHANGED TO location origianlly chosen by user
-    
+    File file = new File("C:\\Users\\Nuno\\Documents\\my_passwords.txt");       // THIS WILL BE CHANGED TO location origianlly chosen by user
     
     //creates and displays the main frame
     public PassLock_Main() {  
@@ -186,7 +188,7 @@ public class PassLock_Main extends javax.swing.JFrame {
         if(evt.getSource() == getFileBtn)
         {
             if(!(file.exists()))
-                JOptionPane.showMessageDialog(null, "Click \"ADD NEW\" to add a password.", "No File Found!", JOptionPane.ERROR_MESSAGE);
+                JOptionPane.showMessageDialog(null, "Click \"ADD NEW\" to add a password.", "No File Found!", JOptionPane.INFORMATION_MESSAGE, ExclamationIcon);
             else 
             {
                 JFileChooser getFile = new JFileChooser();
@@ -196,7 +198,7 @@ public class PassLock_Main extends javax.swing.JFrame {
                 try{
                     Desktop.getDesktop().open(file);   
                 }catch(IOException e){
-                    System.out.println("Error processing File!");
+                    JOptionPane.showMessageDialog(null, "Error processing file!", "ERROR!" ,JOptionPane.INFORMATION_MESSAGE, ErrorIcon);
                 }
             }
         }
@@ -209,98 +211,19 @@ public class PassLock_Main extends javax.swing.JFrame {
         addBtnDialog.setVisible(true);
     }//GEN-LAST:event_addBtnActionPerformed
     
-    //FIND button, uses algorithm to search a array of 4 strings. At a givem line, return a[2] given a[0], i.e given an account (array pos 0), return password (array pos 2). The file will have n lines.
+    //FIND button, uses algorithm to search an ArrayList of 5 strings.
     private void findBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_findBtnActionPerformed
-        
-        //Scanner scanner;   //scanner object scans the file
-        //String collectedLines = null; //this is the line that contains the password the user is looking for. **** there may be +1 lines thus I have to return them all. 
-        //String givenAccnt = null;
-        //4th version of algorithm I tried to use userInfo array to obtain the password at userInfo[2], given an account at userInfo[0]. This dont work as the method containing declaration of userInfo is private and cannot be modified (locked by netbeans)
-        //3rd version improved.... given account string, return the whole line containing such string. Note we may have more than 1 line, i.e more than 1 given account. all the lines will be displayed on a message dialog
         if (evt.getSource() == findBtn) {
             if(!(file.exists()))
             {
-                JOptionPane.showMessageDialog(null, "Click \"ADD NEW\" to add a password.", "No File Found!", JOptionPane.ERROR_MESSAGE);
+                JOptionPane.showMessageDialog(null, "Click \"ADD NEW\" to add a password.", "No File Found!", JOptionPane.ERROR_MESSAGE, ExclamationIcon);
                 searchJtextField.setText("");
-            /*}else if()
-            {
-                check if textfield is empty.. if empty disable find button... if not, search will performed when user clicks search button
-            }    */
             }
             else
             {
-                //givenAccnt = JOptionPane.showInputDialog(null, "Enter ACCOUNT associated with password you wish to find: ","Search for a Password", JOptionPane.INFORMATION_MESSAGE);
                 findPasswords();
             }
         }
-        /*scanner = new Scanner(file);     //initialize scanner on file
-        while(scanner.hasNextLine())     //while lines are being scanned
-        {
-        String getLine = scanner.nextLine();   //gets a string
-        int i = getLine.indexOf(' ');   //find 1st space (note that each entry is separeted by a space)
-        String accntToken = getLine.substring(0, i);    //gets the account (1st string in the line)
-        if(accntToken == null ? givenAccnt == null : accntToken.equals(givenAccnt))
-        {                                   //return the whole line, store each found line in variable collected lines
-        }                                   //write collectedLines to the dialog
-        //else display message dialog nothing found
-        }*/ //Logger.getLogger(PassLock_Main.class.getName()).log(Level.SEVERE, null, ex);
-        //JOptionPane.showMessageDialog(null, "Error processing file!", "ERROR!" ,JOptionPane.ERROR_MESSAGE);
-        
-        
-        //3rd Version of the algorithm... works, but logic is wrong... looks like is displaying all "words" from each line sequentialy
-        /*  try
-        {
-        scanner = new Scanner(file);     //initialize scanner on file
-        while(scanner.hasNextLine())     //while lines are being scanned
-        {
-        String getLine = scanner.nextLine();   //gets a string
-        int i = getLine.indexOf(' ');               //find 1st space (note that each entry is separeted by a space).
-        String source = getLine.substring(0, i);    //get the source (1st string in the entry)
-        if(source.equals(givenSource))              //if this source is the source user is searching...
-        collectedLines = new StringBuilder().append(getLine).toString();        //get that whole line
-        else
-        JOptionPane.showMessageDialog(null, "No match found!", "Password Not Found", JOptionPane.ERROR_MESSAGE);    //if not, password was not found
-        JOptionPane.showMessageDialog(null, collectedLines);
-        }
-        }catch (FileNotFoundException ex) {
-        Logger.getLogger(PasswordBrain_v1_Main.class.getName()).log(Level.SEVERE, null, ex);
-        }
-         */
-        
-        // 2nd VERSION , better but still with logical error. The problem is that the loop is running the whole file .. I believe i must change the while loop to for loop
-        /*while(scanner.hasNextLine())                    //i.e while the file has a next line, keep cycling NOTE:null pointer dereferenced has been uncheked from box on Netbeans Settings
-        {
-        String getLine = scanner.nextLine();
-        int i = getLine.indexOf(' ');               //find 1st space (note that each entry is separeted by a space).
-        String source = getLine.substring(0, i);    //get the source (1st string in the entry)
-        if(source.equals(givenSource))              //if this source is the source user is searching...
-        collectedLines = new StringBuilder().append(getLine).toString();        //get that whole line
-        else
-        JOptionPane.showMessageDialog(null, "No match found!", "Password Not Found", JOptionPane.ERROR_MESSAGE);    //if not, password was not found
-        JOptionPane.showMessageDialog(null, collectedLines);
-        }*/
-        
-        // ORIGINAL VERSION, with logical error
-        //        while(scanner.hasNextLine())                    //i.e while the file has a next line, keep cycling NOTE:null pointer dereferenced has been uncheked from box on Netbeans Settings
-        //        {
-        //            final String getLine = scanner.nextLine();
-        //            if(getLine.contains(givenSource))
-        //                list.add(getLine);
-        //              else JOptionPane.showMessageDialog(null, "No match found!", "Password Not Found", JOptionPane.ERROR_MESSAGE);
-        //            //JOptionPane.showMessageDialog(null, list);
-        //        }
-        //        JOptionPane.showMessageDialog(null, list);
-        // this block of code compiles, but gives wrong output:
-        // Logical error: source names can also be contained in emails. Therefore it not only gives the line that has the password, but also other lines that
-        //    contain the given word (source), i.e lines that I dont need.
-        //    SOLUTION: Notice that when adding an entry, the first input is the source. Therefore, when searching, the given word (source) must match the first
-        //    word of the line. If match, collect the line(s) ***(you can have more than one Faceboook account)*** into a string builder then show it in a Message
-        //    dialog.
-        //    ALTERNATIVELY, To gain control over the search, I need all entries to
-        //    be structured in an arrayList. ***note only arrayList can grow in size*** Notice that when adding an entry, the first input is the source. Therefore,
-        //    when searching, the given word (source) must match the arrayList[0] i.e the word at position 0. If there are +1 matches (we can have more than
-        //    1 facebook account), collect the lines in a string builder formatted w/ n/ (where each line is below another). Then output the String builder
-        //    to the MessageDialog
     }//GEN-LAST:event_findBtnActionPerformed
 
     //RANDOMIZE button, password randomizer
@@ -309,42 +232,58 @@ public class PassLock_Main extends javax.swing.JFrame {
         randomizeBtnDialog.setLocationRelativeTo(null);
         randomizeBtnDialog.setVisible(true);
     }//GEN-LAST:event_randomizeBtnActionPerformed
-      
-    //method to find passwords
+    
+    //method to find passwords.. given an user input, it uses simple algorithm to search matches. Each match (if exists) is collected in ArrayList, then displayed in window pane
     private void findPasswords()
     {
-        String collectedLines = null; //this is the line that contains the password the user is looking for. 
-        //**** there may be +1 lines thus I have to return them all.*** must use ArrayList of strings (lines of strings) instead of Array
-        String givenAccnt = searchJtextField.getText();
-        String accntToken;
-        String getLine;
-        int i;   //delineator... gets the substring from 0 to i... i.e gets the 'account' (1st string in lines of password entries)
-        int v;   //counter... everytime an account is matched and a line is collected to ArrayList, increase v... the pane will also display number of accounts found (i.e. v)
+        String givenAccnt = searchJtextField.getText();                         //user's "account" input 
+        String accntToken;                                                      //first string token of a line, i.e. "account"
+        String getLine;                                                         //this is the line that contains the password the user is looking for. There may be +1 lines thus I have to return them all.*** must use ArrayList of strings (lines of strings) instead of Array
+        ArrayList<String> collectedLines = new ArrayList<>();                   //any matched line(s) is collected to an ArrayList of strings (lines)
+        String nextOutput;                                                      //line(s) that was collected from ArrayList
+        boolean isFound = false;
+        int i;                                                                  //delineator... finds index of 1st space " " on that line  (or try ' '), so we can get to the 1st token of a line i.e. "account"
+        int v = 0;                                                              //counter... everytime an input is matched to a line, the line is collected to ArrayList... increas    e v... the pane will also display number of accounts found (i.e. v)
         
         try
         {
-            Scanner scan = new Scanner(file);
-            while(scan.hasNextLine())                       //while lines are being scanned ----- USE INSTEAD A FOR LOOP (MUST SEARCH WHOLE FILE)
+            Scanner scan = new Scanner(file);                                   //scanner input
+            while(scan.hasNextLine())                                           //while lines are being scanned ----- until end of line
             {
-                getLine = scan.nextLine();                  //gets a line
-                i = getLine.indexOf(" ");                   //finds index of 1st space " " on that line  (or try ' ')
-                accntToken = getLine.substring(0, i);       //gets the account (1st string token in the line, after " ")
-                //if(accntToken == null ? givenAccnt == null : accntToken.equals(givenAccnt))
-                if(givenAccnt.equalsIgnoreCase(accntToken)) //if given input account equals the account on the line 
+                getLine = scan.nextLine();                                      //gets a line
+                i = getLine.indexOf(" ");                                       //get index of substring (account) token
+                accntToken = getLine.substring(0, i);                           //gets the account (1st string token in the line, after " ")                        
+                if(givenAccnt.equalsIgnoreCase(accntToken))                     //if given input account equals the account on the line 
                 {     
-                                                            //append the line to the ArrayList collectedLines
-                                                            //write collectedLines to the dialog
-                                                            //increase counter
-                
-                }else
+                    collectedLines.add(getLine);                                //append the line to the ArrayList collectedLines
+                    isFound = true;                                             //flag
+                    v++;                                                        //increase counter for number of matches found
+                }               
+            }           
+            
+            ListIterator<String> outputMatches = collectedLines.listIterator(); //iterator for ArrayList must be declared AFTER modifying the collection (i.e. adding to it), otherwise will throw ConcurrentModification exception!!
+            
+            while(outputMatches.hasNext())                                      //loop iterates the ArrayList to write collectedLines to the dialog
+            {
+                nextOutput = (String)outputMatches.next();                      //get line(s) from the ArrayList
+            
+                if(isFound)
                 {
-                    JOptionPane.showMessageDialog(null, "No passwords found that match given account.", "Nothing found!", JOptionPane.INFORMATION_MESSAGE);
-                }                                          
+                    JOptionPane.showMessageDialog(null, v + " password(s) were found for: \"" + givenAccnt + "\""+ "\n" + "\n -> " + nextOutput, "Password(s) found!", JOptionPane.INFORMATION_MESSAGE);    //display each line on dialog
+                    outputMatches.remove();
+                    searchJtextField.setText("");
+                }
             }
-        }catch (FileNotFoundException ex) 
+            if(!isFound)
+            {
+                    JOptionPane.showMessageDialog(null, "No passwords found for \"" + givenAccnt + "\" account(s).", "Password(s) not found!", JOptionPane.INFORMATION_MESSAGE, ExclamationIcon);
+                    searchJtextField.setText("");
+            }
+            
+        }catch(FileNotFoundException ex) 
         {
             Logger.getLogger(PassLock_Main.class.getName()).log(Level.SEVERE, null, ex);
-            JOptionPane.showMessageDialog(null, "Error processing file!", "ERROR!" ,JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(null, "Error processing file!", "ERROR!" ,JOptionPane.INFORMATION_MESSAGE, ErrorIcon);
         }
     }
     
@@ -378,7 +317,8 @@ public class PassLock_Main extends javax.swing.JFrame {
             }
         });
     }
-
+    private final ImageIcon ExclamationIcon = new ImageIcon(getClass().getResource("/exclamationIcon_50x50.png"));
+    private final ImageIcon ErrorIcon = new ImageIcon(getClass().getResource("/red_cross50x50.png"));
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton addBtn;
     private javax.swing.JButton findBtn;
