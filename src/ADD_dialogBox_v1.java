@@ -286,7 +286,7 @@ public class ADD_dialogBox_v1 extends javax.swing.JDialog {
     }
     
     private final ImageIcon ErrorIcon = new ImageIcon(getClass().getResource("/red_cross50x50.png"));
-    private final ImageIcon checkMarkIcon = new ImageIcon(getClass().getResource("/checked50x50.png"));
+    private final ImageIcon checkMarkIcon = new ImageIcon(getClass().getResource("/checkedPL.png"));
     private final String[] userInfo = new String[4];
     private final File targetFile = new File("C:\\Users\\Nuno\\Documents\\my_passwords.txt");
     // Variables declaration - do not modify//GEN-BEGIN:variables

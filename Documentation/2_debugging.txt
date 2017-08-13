@@ -2,11 +2,13 @@
 
 - GET FILE: file still opens when user closes file location
 
+*** FIXED BUGS ***
+
 - SEARCH FEATURE: # of same found passwords must be displayed on custom jtextarea(on custom JDialog). Stylize the JTextArea to appear as label
 
-
-
-*** FIXED BUGS ***
+- SEARCH FEATURE: # of same found passwords must be displayed on custom jtextarea(on custom JDialog). Had issue with displaying +1 outputs, i.e. when there was more than
+                    1 match, only last match was displayed in textarea. This was solved by using textarea.append(matches + "\n") INSTEAD OF textarea.setText(matches + "\n")
+                    (Note: System.Out.LineSeparator was also usable in place of "\n") 
 
 - SEARCH FEATURE: runtime exception when user presses CANCEL while searching password
 

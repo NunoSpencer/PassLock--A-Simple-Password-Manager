@@ -1,5 +1,11 @@
+/*
+ * @author Nuno Spencer
+ * www.nunospencer.com
+ */
 
+import com.sun.glass.events.KeyEvent;
 import java.awt.Desktop;
+import java.awt.Toolkit;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
@@ -14,32 +20,16 @@ import javax.swing.JOptionPane;
 import javax.swing.event.DocumentEvent;
 import javax.swing.event.DocumentListener;
 
-/*
- * NOTE: on line 166 
- * null pointer dereferenced has been uncheked from box on Netbeans Settings (->Options -> Editor -> uncheck Null Pointer Dereferenced)
- * TECHNICALITIES: 
- *
- * SEARCH button: note that I did not program the SEARCH button in a new Dialog Box. Instead I used a JOptionPane to get input for the string 
- * to search. Once user presses OK a JOptionPane.showMessageDialog(fram, lines of result). NOTE that multiple lines can be returned in the message box. 
- * Therefore, I must collect the lines to a variable arrayList* of String, to show the variable (i.e the lines) in the Message box. *ArrayList is used
- * because of the need to grow the array (as lines are found). (regular arrays cannot grow nor shwrink)
- * 
- * GET FILE button: note that the default file to be read/write is called passwordRepository.txt; NOTE that if the file is not in the given directory path
- * the program automatically creatres the file. If the file is there, the program only re-writes the file.
- */
-
-/*
- * @author Nuno Spencer
- * www.nunospencer.com
- */
-
 public class PassLock_Main extends javax.swing.JFrame {
     
     File file = new File("C:\\Users\\Nuno\\Documents\\my_passwords.txt");       // THIS WILL BE CHANGED TO location origianlly chosen by user
     
+    public static FindPasswrdsOutputDialog foundPasswrdsOutputDialog;           //object of child dialog, used to create and display window with found passwords
+    
     //creates and displays the main frame
     public PassLock_Main() {  
         initComponents();
+        setIcon();
     }
     
    
@@ -76,6 +66,16 @@ public class PassLock_Main extends javax.swing.JFrame {
 
         searchJtextField.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         searchJtextField.setToolTipText("Enter ACCOUNT associated with the password you wish to find, E.G. \"Facebook\" ");
+        searchJtextField.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                searchJtextFieldActionPerformed(evt);
+            }
+        });
+        searchJtextField.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                searchJtextFieldKeyPressed(evt);
+            }
+        });
 
         addBtn.setText("ADD NEW");
         addBtn.setToolTipText("Add new password");
@@ -204,7 +204,7 @@ public class PassLock_Main extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_getFileBtnActionPerformed
 
-    //ADD NEW button, adds new password
+    //ADD NEW , adds new password
     private void addBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_addBtnActionPerformed
         ADD_dialogBox_v1 addBtnDialog = new ADD_dialogBox_v1(this, true);
         addBtnDialog.setLocationRelativeTo(null);
@@ -232,7 +232,27 @@ public class PassLock_Main extends javax.swing.JFrame {
         randomizeBtnDialog.setLocationRelativeTo(null);
         randomizeBtnDialog.setVisible(true);
     }//GEN-LAST:event_randomizeBtnActionPerformed
-    
+
+    private void searchJtextFieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_searchJtextFieldActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_searchJtextFieldActionPerformed
+
+    //search at press of ENTER key on jtextfield (alternate to clicking SEARCH BUTTON)
+    private void searchJtextFieldKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_searchJtextFieldKeyPressed
+        if(evt.getKeyCode() == KeyEvent.VK_ENTER)
+        {
+            if(!(file.exists()))
+            {
+                JOptionPane.showMessageDialog(null, "Click \"ADD NEW\" to add a password.", "No File Found!", JOptionPane.ERROR_MESSAGE, ExclamationIcon);
+                searchJtextField.setText("");
+            }
+            else
+            {
+                findPasswords();
+            }
+        }
+    }//GEN-LAST:event_searchJtextFieldKeyPressed
+      
     //method to find passwords.. given an user input, it uses simple algorithm to search matches. Each match (if exists) is collected in ArrayList, then displayed in window pane
     private void findPasswords()
     {
@@ -240,7 +260,6 @@ public class PassLock_Main extends javax.swing.JFrame {
         String accntToken;                                                      //first string token of a line, i.e. "account"
         String getLine;                                                         //this is the line that contains the password the user is looking for. There may be +1 lines thus I have to return them all.*** must use ArrayList of strings (lines of strings) instead of Array
         ArrayList<String> collectedLines = new ArrayList<>();                   //any matched line(s) is collected to an ArrayList of strings (lines)
-        String nextOutput;                                                      //line(s) that was collected from ArrayList
         boolean isFound = false;
         int i;                                                                  //delineator... finds index of 1st space " " on that line  (or try ' '), so we can get to the 1st token of a line i.e. "account"
         int v = 0;                                                              //counter... everytime an input is matched to a line, the line is collected to ArrayList... increas    e v... the pane will also display number of accounts found (i.e. v)
@@ -261,25 +280,27 @@ public class PassLock_Main extends javax.swing.JFrame {
                 }               
             }           
             
-            ListIterator<String> outputMatches = collectedLines.listIterator(); //iterator for ArrayList must be declared AFTER modifying the collection (i.e. adding to it), otherwise will throw ConcurrentModification exception!!
-            
-            while(outputMatches.hasNext())                                      //loop iterates the ArrayList to write collectedLines to the dialog
+            if(isFound)                                                             //if passwords found, display them in my custom window
             {
-                nextOutput = (String)outputMatches.next();                      //get line(s) from the ArrayList
-            
-                if(isFound)
+                foundPasswrdsOutputDialog = new FindPasswrdsOutputDialog(this, true);
+                foundPasswrdsOutputDialog.foundPasswrdsLabelMssge.setText(v + " password(s) found for \"" + givenAccnt + "\" :");
+                
+                ListIterator<String> outputMatches = collectedLines.listIterator(); //iterator for ArrayList - iterates the ArrayList to get collected lines. NOTE: must be declared AFTER modifying the collection (i.e. adding to it), otherwise will throw ConcurrentModification exception!!
+   
+                while(outputMatches.hasNext())                                      //loop iterates the ArrayList to write collectedLines to the dialog
                 {
-                    JOptionPane.showMessageDialog(null, v + " password(s) were found for: \"" + givenAccnt + "\""+ "\n" + "\n -> " + nextOutput, "Password(s) found!", JOptionPane.INFORMATION_MESSAGE);    //display each line on dialog
-                    outputMatches.remove();
-                    searchJtextField.setText("");
+                   nextOutput = (String)outputMatches.next();                       //get line(s) from the ArrayList 
+                   foundPasswrdsOutputDialog.OutputTextArea.append(nextOutput + "\n"); //this statement has to be inside loop, otherwise only last match will be showed.. also
                 }
-            }
-            if(!isFound)
+                
+                foundPasswrdsOutputDialog.setVisible(true);                     //make dialog visible
+                outputMatches.remove();
+                searchJtextField.setText("");                                   //clear searchTextField if user wants to perform another search                                     
+            }else
             {
-                    JOptionPane.showMessageDialog(null, "No passwords found for \"" + givenAccnt + "\" account(s).", "Password(s) not found!", JOptionPane.INFORMATION_MESSAGE, ExclamationIcon);
-                    searchJtextField.setText("");
+                JOptionPane.showMessageDialog(null, "No passwords found for \"" + givenAccnt + "\" account.", "Password(s) not found!", JOptionPane.INFORMATION_MESSAGE, ExclamationIcon);
+                searchJtextField.setText("");
             }
-            
         }catch(FileNotFoundException ex) 
         {
             Logger.getLogger(PassLock_Main.class.getName()).log(Level.SEVERE, null, ex);
@@ -317,6 +338,8 @@ public class PassLock_Main extends javax.swing.JFrame {
             }
         });
     }
+            
+    public String nextOutput;                                                   //line(s) that iterator for ArrayList collects from it
     private final ImageIcon ExclamationIcon = new ImageIcon(getClass().getResource("/exclamationIcon_50x50.png"));
     private final ImageIcon ErrorIcon = new ImageIcon(getClass().getResource("/red_cross50x50.png"));
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -327,4 +350,8 @@ public class PassLock_Main extends javax.swing.JFrame {
     private javax.swing.JButton randomizeBtn;
     private javax.swing.JTextField searchJtextField;
     // End of variables declaration//GEN-END:variables
+
+    private void setIcon() {
+        setIconImage(Toolkit.getDefaultToolkit().getImage(getClass().getResource("PL-icon16x16.png")));
+    }
 }

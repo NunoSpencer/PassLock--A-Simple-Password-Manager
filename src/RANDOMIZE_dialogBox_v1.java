@@ -6,7 +6,7 @@ import javax.swing.JOptionPane;
  * @author www.nunospencer.com
  */
 public class RANDOMIZE_dialogBox_v1 extends javax.swing.JDialog {
-    public static RandomOuptDialog outputdialog;                                //variable of type dialog for child output dialog box          
+    public static RandomOuptDialog outputdialog;                                //object of child dialog, used in method CreateOutDialog(String psw) - defined below          
     
     public RANDOMIZE_dialogBox_v1(java.awt.Frame parent, boolean modal)         //constructor for parent dialog
     {
@@ -14,14 +14,6 @@ public class RANDOMIZE_dialogBox_v1 extends javax.swing.JDialog {
         initComponents();
     }
     
-    public void CreateOutDialog(String psw)                        //constructor for child dialog - creates child dialog when "Generate" button is clicked, showing the generated password on dialog pop-up
-    {                    
-        outputdialog = new RandomOuptDialog(this, true); 
-        outputdialog.jTextField1.setText(psw);
-        outputdialog.jTextField1.selectAll();                      //when dialog pops-up, text is highlighted so user can copy to clipboard
-        outputdialog.setVisible(true);
-    }
-   
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -119,7 +111,7 @@ public class RANDOMIZE_dialogBox_v1 extends javax.swing.JDialog {
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap(28, Short.MAX_VALUE)
+                .addContainerGap(30, Short.MAX_VALUE)
                 .addComponent(jLabel1)
                 .addGap(18, 18, 18)
                 .addComponent(MixCaseOpt_RadBtn)
@@ -168,6 +160,16 @@ public class RANDOMIZE_dialogBox_v1 extends javax.swing.JDialog {
             return sb.toString();
         }
      
+    
+    //method that displays the dialog for random generated passwords, called at click of "GENERATE" button
+    public void CreateOutDialog(String psw)                                     //constructor for child dialog - creates child dialog when "Generate" button is clicked, showing the generated password on dialog pop-up
+    {                    
+        outputdialog = new RandomOuptDialog(this, true); 
+        outputdialog.jTextField1.setText(psw);
+        outputdialog.jTextField1.selectAll();                                   //when dialog pops-up, text is highlighted so user can copy to clipboard
+        outputdialog.setVisible(true);
+    }    
+    
     //method that generates randomized password when user clicks "Generate" button
     private void randomizeGenerateBtn1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_randomizeGenerateBtn1ActionPerformed
         try

@@ -22,7 +22,7 @@ public class RandomOuptDialog extends javax.swing.JDialog {
         setLocationRelativeTo(this);                                            //should set location relative to parent dialog, not this?
     }
    
-    //@return the return status of this dialog - one of RET_OK or RET_CANCEL
+    //@return the return status of this dialog - one of RET_OK 
     public int getReturnStatus() {
         return returnStatus;
     }
