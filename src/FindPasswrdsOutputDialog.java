@@ -64,7 +64,6 @@ public class FindPasswrdsOutputDialog extends javax.swing.JDialog {
 
         OutputTextArea.setColumns(20);
         OutputTextArea.setFont(new java.awt.Font("Corbel", 1, 13)); // NOI18N
-        OutputTextArea.setLineWrap(true);
         OutputTextArea.setRows(5);
         OutputTextArea.setAutoscrolls(false);
         OutputTextArea.setEditable(false);

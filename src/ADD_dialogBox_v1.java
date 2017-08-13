@@ -1,5 +1,6 @@
 //import java.io.File;
 //import java.io.FileWriter;
+import com.sun.glass.events.KeyEvent;
 import java.io.IOException;
 import java.io.BufferedWriter;
 import java.io.File;
@@ -83,6 +84,11 @@ public class ADD_dialogBox_v1 extends javax.swing.JDialog {
         cancelBtn.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 cancelBtnActionPerformed(evt);
+            }
+        });
+        cancelBtn.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                cancelBtnKeyPressed(evt);
             }
         });
 
@@ -241,9 +247,71 @@ public class ADD_dialogBox_v1 extends javax.swing.JDialog {
         dispose();
     }//GEN-LAST:event_cancelBtnActionPerformed
 
+    //add new password when ENTER key is pressed on "Add New Password" button (alternate to clicking the button)
     private void EnterKey(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_EnterKey
-        // TODO add your handling code here:
+        if(evt.getKeyCode() == KeyEvent.VK_ENTER)
+        {
+            userInfo[0] = sourceTextField.getText();
+        userInfo[1] = usernameTextField.getText();
+        userInfo[2] = passwordTextField.getText();    
+        userInfo[3] = emailTextField.getText();
+        if(userInfo[0].equals(""))
+        {
+            JOptionPane.showMessageDialog(null, "An ACCOUNT is required. Enter the account associated with the password you wish to save.", "Missing \"ACCOUNT\" information!", HEIGHT);
+            sourceTextField.requestFocusInWindow();
+        }
+        else if(userInfo[1].equals(""))
+        {
+            JOptionPane.showMessageDialog(null, "An USERNAME is required. Enter the username associated with the password you wish to save.", "Missing \"USERNAME\" information!", HEIGHT);
+            usernameTextField.requestFocusInWindow();
+        }
+        else if(userInfo[2].equals(""))
+        {
+            JOptionPane.showMessageDialog(null, "A PASSWORD is required. Enter the password you wish to save.", "Missing \"PASSWORD\" information!" ,HEIGHT);
+            passwordTextField.requestFocusInWindow();
+        }
+        else if(userInfo[3].equals(""))
+        {
+             JOptionPane.showMessageDialog(null, "An EMAIL is required. Enter the email associated to account's password.", "Missing \"EMAIL\" information!", HEIGHT);
+             emailTextField.requestFocusInWindow();
+        }
+        else 
+        {
+            try{
+                FileWriter fw = new FileWriter(new File("C:\\Users\\Nuno\\Documents\\my_passwords.txt"), true);             //this automatically creates my_passwords.txt file. A mod to this is allowing the user to choose where to create the file
+                
+                if(searchFile(userInfo[0]) >= 5)            //upon adding new password, the file is searched (note: the file must exist before it is search).. if more than 5 same accounts are already in file, block
+                {
+                    JOptionPane.showMessageDialog(null, "A maximum of 5 passwords per account can be added." + "\n" + "There are already 5 password entries for \"" + userInfo[0] + "\" on file.", "Password Entries Exceeded!" ,JOptionPane.ERROR_MESSAGE, ErrorIcon);
+                    dispose();
+                }else
+                { 
+                    try (Writer output = new BufferedWriter(fw)) 
+                    {
+                        for (String userInfo1 : userInfo)                       //output all 4 strings from the array to the file my_passwords.txt
+                        {
+                            output.write(userInfo1 + " ");
+                        }
+                        output.write(System.getProperty("line.separator"));
+                        JOptionPane.showMessageDialog(null, "DONE!" + "\n" + "\n"+ "Click \"GET PASSWORDS\" to retrieve your passwords!", "Password Added!",  JOptionPane.INFORMATION_MESSAGE, checkMarkIcon);
+                        dispose();
+                    }   
+                }
+            }catch (IOException e)
+            {
+              JOptionPane.showMessageDialog(null, "Error! No File Found.");
+            }   
+        }
+        }
     }//GEN-LAST:event_EnterKey
+
+    //cancel when CANCEL button is focused and enterkey 
+    private void cancelBtnKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_cancelBtnKeyPressed
+        if(evt.getKeyCode() == KeyEvent.VK_ENTER)
+        {
+            dispose();
+        }
+    }//GEN-LAST:event_cancelBtnKeyPressed
 
     /**
      * @param args the command line arguments
