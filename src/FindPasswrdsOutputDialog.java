@@ -1,3 +1,11 @@
+/*
+ * PASSLOCK (version 1.0) - A Simple Password Manager APP 
+ *
+ * @author Nuno Spencer
+ *
+ * www.nunospencer.com
+ * www.nunospencer.com/passlockv1
+ */
 
 import java.awt.Toolkit;
 
@@ -60,7 +68,7 @@ public class FindPasswrdsOutputDialog extends javax.swing.JDialog {
 
         foundPasswrdsLabelMssge.setText("message");
 
-        jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/accntsPasswrdsIcon120x120.png"))); // NOI18N
+        jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/padlockPasswrd_105x105.png"))); // NOI18N
 
         OutputTextArea.setColumns(20);
         OutputTextArea.setFont(new java.awt.Font("Corbel", 1, 13)); // NOI18N
@@ -78,11 +86,11 @@ public class FindPasswrdsOutputDialog extends javax.swing.JDialog {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addComponent(okButton, javax.swing.GroupLayout.PREFERRED_SIZE, 67, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(jLabel1)
                         .addGap(18, 18, 18)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(foundPasswrdsLabelMssge)
-                            .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 234, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                            .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 287, javax.swing.GroupLayout.PREFERRED_SIZE))))
                 .addGap(30, 30, 30))
         );
         layout.setVerticalGroup(

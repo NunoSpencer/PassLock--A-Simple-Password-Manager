@@ -1,5 +1,12 @@
-//import java.io.File;
-//import java.io.FileWriter;
+/*
+ * PASSLOCK (version 1.0) - A Simple Password Manager APP 
+ *
+ * @author Nuno Spencer
+ *
+ * www.nunospencer.com
+ * www.nunospencer.com/passlockv1
+ */
+
 import com.sun.glass.events.KeyEvent;
 import java.io.IOException;
 import java.io.BufferedWriter;
@@ -222,7 +229,7 @@ public class ADD_dialogBox_v1 extends javax.swing.JDialog {
                             output.write(userInfo1 + " ");
                         }
                         output.write(System.getProperty("line.separator"));
-                        JOptionPane.showMessageDialog(null, "DONE!" + "\n" + "\n"+ "Click \"GET PASSWORDS\" to retrieve your passwords!", "Password Added!",  JOptionPane.INFORMATION_MESSAGE, checkMarkIcon);
+                        JOptionPane.showMessageDialog(null, "DONE!" + "\n" + "\n"+ "Click \"GET FILE\" to retrieve your passwords!", "Password Added!",  JOptionPane.INFORMATION_MESSAGE, checkMarkIcon);
                         dispose();
                     }   
                 }

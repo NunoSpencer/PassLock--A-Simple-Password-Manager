@@ -1,3 +1,11 @@
+/*
+ * PASSLOCK (version 1.0) - A Simple Password Manager APP 
+ *
+ * @author Nuno Spencer
+ *
+ * www.nunospencer.com
+ * www.nunospencer.com/passlockv1
+ */
 
 import java.awt.Toolkit;
 import java.awt.datatransfer.Clipboard;

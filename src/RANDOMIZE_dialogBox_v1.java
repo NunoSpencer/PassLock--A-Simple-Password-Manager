@@ -1,10 +1,16 @@
+/*
+ * PASSLOCK (version 1.0) - A Simple Password Manager APP 
+ *
+ * @author Nuno Spencer
+ *
+ * www.nunospencer.com
+ * www.nunospencer.com/passlockv1
+ */
+
 import java.awt.event.KeyEvent;
 import java.util.Random;
 import javax.swing.JOptionPane;
 
-/**
- * @author www.nunospencer.com
- */
 public class RANDOMIZE_dialogBox_v1 extends javax.swing.JDialog {
     public static RandomOuptDialog outputdialog;                                //object of child dialog, used in method CreateOutDialog(String psw) - defined below          
     

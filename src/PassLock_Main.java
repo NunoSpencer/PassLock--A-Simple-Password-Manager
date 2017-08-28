@@ -1,6 +1,10 @@
 /*
+ * PASSLOCK (version 1.0) - A Simple Password Manager APP 
+ *
  * @author Nuno Spencer
+ *
  * www.nunospencer.com
+ * www.nunospencer.com/passlockv1
  */
 
 import com.sun.glass.events.KeyEvent;
@@ -95,7 +99,7 @@ public class PassLock_Main extends javax.swing.JFrame {
             }
         });
 
-        jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/PasswordbrainIcon.png"))); // NOI18N
+        jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/pl_icon.png"))); // NOI18N
         jLabel1.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -134,7 +138,7 @@ public class PassLock_Main extends javax.swing.JFrame {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(randomizeBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addContainerGap(30, Short.MAX_VALUE))
+                .addContainerGap(31, Short.MAX_VALUE))
         );
 
         if(searchJtextField.getText().equals(""))
@@ -176,7 +180,7 @@ public class PassLock_Main extends javax.swing.JFrame {
             setLocationRelativeTo(null);
         }// </editor-fold>//GEN-END:initComponents
 
-    //GET FILE button, gets file (if exists)
+    //GET FILE button, gets file (if exists). If file does not exist, message will show directing user to add new password thus creating the file
     private void getFileBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_getFileBtnActionPerformed
         if(evt.getSource() == getFileBtn)
         {
@@ -252,7 +256,7 @@ public class PassLock_Main extends javax.swing.JFrame {
         String getLine;                                                         //this is the line that contains the password the user is looking for. There may be +1 lines thus I have to return them all.*** must use ArrayList of strings (lines of strings) instead of Array
         ArrayList<String> collectedLines = new ArrayList<>();                   //any matched line(s) is collected to an ArrayList of strings (lines)
         boolean isFound = false;
-        int i;                                                                  //delineator... finds index of 1st space " " on that line  (or try ' '), so we can get to the 1st token of a line i.e. "account"
+        int i;                                                                  //delineator... finds index of 1st space " " on that line, then we can get to the 1st token of a line i.e. "account"
         int v = 0;                                                              //counter... everytime an input is matched to a line, the line is collected to ArrayList... increas    e v... the pane will also display number of accounts found (i.e. v)
         
         try
@@ -263,10 +267,10 @@ public class PassLock_Main extends javax.swing.JFrame {
                 getLine = scan.nextLine();                                      //gets a line
                 i = getLine.indexOf(" ");                                       //get index of substring (account) token
                 accntToken = getLine.substring(0, i);                           //gets the account (1st string token in the line, after " ")                        
-                if(givenAccnt.equalsIgnoreCase(accntToken))                     //if given input account equals the account on the line 
+                if(givenAccnt.equalsIgnoreCase(accntToken))                     //if given input account equals the token account on the line 
                 {     
                     collectedLines.add(getLine);                                //append the line to the ArrayList collectedLines
-                    isFound = true;                                             //flag
+                    isFound = true;                                             //flag as found
                     v++;                                                        //increase counter for number of matches found
                 }               
             }           
