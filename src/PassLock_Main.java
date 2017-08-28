@@ -21,9 +21,7 @@ import javax.swing.event.DocumentEvent;
 import javax.swing.event.DocumentListener;
 
 public class PassLock_Main extends javax.swing.JFrame {
-    
-    File file = new File("C:\\Users\\Nuno\\Documents\\my_passwords.txt");       // THIS WILL BE CHANGED TO location origianlly chosen by user
-    
+     
     public static FindPasswrdsOutputDialog foundPasswrdsOutputDialog;           //object of child dialog, used to create and display window with found passwords
     
     //creates and displays the main frame
@@ -66,11 +64,6 @@ public class PassLock_Main extends javax.swing.JFrame {
 
         searchJtextField.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         searchJtextField.setToolTipText("Enter ACCOUNT associated with the password you wish to find, E.G. \"Facebook\" ");
-        searchJtextField.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                searchJtextFieldActionPerformed(evt);
-            }
-        });
         searchJtextField.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyPressed(java.awt.event.KeyEvent evt) {
                 searchJtextFieldKeyPressed(evt);
@@ -187,14 +180,16 @@ public class PassLock_Main extends javax.swing.JFrame {
     private void getFileBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_getFileBtnActionPerformed
         if(evt.getSource() == getFileBtn)
         {
-            if(!(file.exists()))
+            if(!(file.exists()))    
                 JOptionPane.showMessageDialog(null, "Click \"ADD NEW\" to add a password.", "No File Found!", JOptionPane.INFORMATION_MESSAGE, ExclamationIcon);
             else 
             {
                 JFileChooser getFile = new JFileChooser();
                 int x = getFile.showOpenDialog(null);   
-                if (x == JFileChooser.APPROVE_OPTION)
+                if (x != JFileChooser.APPROVE_OPTION) {
+                } else {
                     file = getFile.getSelectedFile();
+                }
                 try{
                     Desktop.getDesktop().open(file);   
                 }catch(IOException e){
@@ -232,10 +227,6 @@ public class PassLock_Main extends javax.swing.JFrame {
         randomizeBtnDialog.setLocationRelativeTo(null);
         randomizeBtnDialog.setVisible(true);
     }//GEN-LAST:event_randomizeBtnActionPerformed
-
-    private void searchJtextFieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_searchJtextFieldActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_searchJtextFieldActionPerformed
 
     //search at press of ENTER key on jtextfield (alternate to clicking SEARCH BUTTON)
     private void searchJtextFieldKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_searchJtextFieldKeyPressed
@@ -340,6 +331,9 @@ public class PassLock_Main extends javax.swing.JFrame {
     }
             
     public String nextOutput;                                                   //line(s) that iterator for ArrayList collects from it
+    //private File file = new File("C:\\Users\\Nuno\\Documents\\my_passwords.txt");   // THIS WILL BE CHANGED TO default user "Documents" directory
+    String path = System.getProperty("user.home") + File.separator + "Documents\\my_passwords.txt";
+    private File file = new File(path);
     private final ImageIcon ExclamationIcon = new ImageIcon(getClass().getResource("/exclamationIcon_50x50.png"));
     private final ImageIcon ErrorIcon = new ImageIcon(getClass().getResource("/red_cross50x50.png"));
     // Variables declaration - do not modify//GEN-BEGIN:variables

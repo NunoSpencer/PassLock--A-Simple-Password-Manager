@@ -11,7 +11,7 @@ navigation - add a "File" menu that includes: | "About"
                                                  www.nunospencer.com/PassLockV1
                                                  Thanks for using! Nuno Spencer @2017
                                                  
-ENTER functionality for buttons, such as when user presses ENTER key with searchPassword textfield focused, a search is performed (similar to clicking SEARCH BUTTON)
+******** COMPLETED ************ ENTER functionality for buttons, such as when user presses ENTER key with searchPassword textfield focused, a search is performed (similar to clicking SEARCH BUTTON)
 
 ******** COMPLETED ************ SEARCH FEATURE: force # of same accounts to be 5, i.e. user can only have 5 same accounts. To do this, upon ADD NEW the file is search for matches of same 
   account. If exceeds 5, show ERROR message that only 5 same accounts can be added. This prevents the output window to be immensely large (if user decides to)

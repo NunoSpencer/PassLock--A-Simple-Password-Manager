@@ -147,16 +147,6 @@ public class ADD_dialogBox_v1 extends javax.swing.JDialog {
     private void sourceTextFieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_sourceTextFieldActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_sourceTextFieldActionPerformed
-
-    /*public String BuildString()
-    {
-        StringBuilder result = new StringBuilder();
-        String NEW_LINE = System.getProperty("line.separator");
-        StringBuilder append = result.append(sourceTextField.getText()).append(" ").append(usernameTextField.getText()).append(" ").append(passwordTextField.getText()).append(" ").append(emailTextField.getText());
-        result.append(NEW_LINE);
-        
-        return result.toString();
-    }*/
     
     //method to force user to enter 5 SAME accounts only.. this prevents displaying excess same accounts when searching (avoids output window of search to be immensely large)
     //upon clicking "ADD" a search is performed in the password's file.. if there exists 5 entries w/ same accounts, user is blocked from entering another... otherwise procees to add
@@ -217,9 +207,9 @@ public class ADD_dialogBox_v1 extends javax.swing.JDialog {
         else 
         {
             try{
-                FileWriter fw = new FileWriter(new File("C:\\Users\\Nuno\\Documents\\my_passwords.txt"), true);             //this automatically creates my_passwords.txt file. A mod to this is allowing the user to choose where to create the file
-                
-                if(searchFile(userInfo[0]) >= 5)            //upon adding new password, the file is searched (note: the file must exist before it is search).. if more than 5 same accounts are already in file, block
+                //FileWriter fw = new FileWriter(new File("C:\\Users\\Nuno\\Documents\\my_passwords.txt"), true);             //this automatically creates my_passwords.txt file. A mod to this is allowing the user to choose where to create the file
+                FileWriter fw = new FileWriter(targetFile, true);
+                if(searchFile(userInfo[0]) >= 5)                                //upon adding new password, the file is searched (note: the file must exist before it is search).. if more than 5 same accounts are already in file, block
                 {
                     JOptionPane.showMessageDialog(null, "A maximum of 5 passwords per account can be added." + "\n" + "There are already 5 password entries for \"" + userInfo[0] + "\" on file.", "Password Entries Exceeded!" ,JOptionPane.ERROR_MESSAGE, ErrorIcon);
                     dispose();
@@ -243,6 +233,7 @@ public class ADD_dialogBox_v1 extends javax.swing.JDialog {
         }
     }//GEN-LAST:event_addPasswordBtnActionPerformed
 
+    
     private void cancelBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cancelBtnActionPerformed
         dispose();
     }//GEN-LAST:event_cancelBtnActionPerformed
@@ -252,9 +243,9 @@ public class ADD_dialogBox_v1 extends javax.swing.JDialog {
         if(evt.getKeyCode() == KeyEvent.VK_ENTER)
         {
             userInfo[0] = sourceTextField.getText();
-        userInfo[1] = usernameTextField.getText();
-        userInfo[2] = passwordTextField.getText();    
-        userInfo[3] = emailTextField.getText();
+            userInfo[1] = usernameTextField.getText();
+            userInfo[2] = passwordTextField.getText();    
+            userInfo[3] = emailTextField.getText();
         if(userInfo[0].equals(""))
         {
             JOptionPane.showMessageDialog(null, "An ACCOUNT is required. Enter the account associated with the password you wish to save.", "Missing \"ACCOUNT\" information!", HEIGHT);
@@ -278,7 +269,7 @@ public class ADD_dialogBox_v1 extends javax.swing.JDialog {
         else 
         {
             try{
-                FileWriter fw = new FileWriter(new File("C:\\Users\\Nuno\\Documents\\my_passwords.txt"), true);             //this automatically creates my_passwords.txt file. A mod to this is allowing the user to choose where to create the file
+                FileWriter fw = new FileWriter(targetFile, true);             //this automatically creates my_passwords.txt file. A mod to this is allowing the user to choose where to create the file
                 
                 if(searchFile(userInfo[0]) >= 5)            //upon adding new password, the file is searched (note: the file must exist before it is search).. if more than 5 same accounts are already in file, block
                 {
@@ -356,7 +347,12 @@ public class ADD_dialogBox_v1 extends javax.swing.JDialog {
     private final ImageIcon ErrorIcon = new ImageIcon(getClass().getResource("/red_cross50x50.png"));
     private final ImageIcon checkMarkIcon = new ImageIcon(getClass().getResource("/checkedPL.png"));
     private final String[] userInfo = new String[4];
-    private final File targetFile = new File("C:\\Users\\Nuno\\Documents\\my_passwords.txt");
+    
+    String path = System.getProperty("user.home") + File.separator + "Documents\\my_passwords.txt";
+    private final File targetFile = new File(path);
+    //private final File targetFile = new File("C:\\Users\\Nuno\\Documents\\my_passwords.txt");
+    //private final File targetFile = new File(System.getProperty("user.home"+"\\Documents\\my_passwords.txt"));
+    
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton addPasswordBtn;
     private javax.swing.JButton cancelBtn;

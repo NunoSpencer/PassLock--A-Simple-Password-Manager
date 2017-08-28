@@ -1,8 +1,17 @@
 *** BUGS ***
 
-- GET FILE: file still opens when user closes file location
 
-*** FIXED BUGS ***
+*************** FIXED BUGS *****************
+- CREATE, SAVE, and GET file AT RELATIVE USER'S directory "Documents" folder. Note that will not work for other language versions of Windows (such as portuguese version "Documentos").
+    use code: System.getProperty("user.home") + File.separator + "Documents\\my_passwords.txt";
+              - i.e, save to user's home/Documents directory
+              - more info : https://stackoverflow.com/questions/3634853/how-to-create-a-directory-in-java?noredirect=1&lq=1
+
+    Note: 1st) test the change using "GET FILE" button (Main app class). Test with no file in folder.. then create file in folder and test again
+          2nd) add and test the change when adding a new password
+          3rd) test the change with "FIND"  
+
+- GET FILE: file still opens when user closes file location**
 
 - SEARCH FEATURE: # of same found passwords must be displayed on custom jtextarea(on custom JDialog). Stylize the JTextArea to appear as label
 
