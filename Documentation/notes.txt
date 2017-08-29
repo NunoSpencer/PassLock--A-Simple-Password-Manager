@@ -3,12 +3,9 @@
  * NOTE: on line 166 
  * null pointer dereferenced has been uncheked from box on Netbeans Settings (->Options -> Editor -> uncheck Null Pointer Dereferenced)
  * TECHNICALITIES: 
- *
- * SEARCH button: note that I did not program the SEARCH button in a new Dialog Box. Instead I used a JOptionPane to get input for the string 
- * to search. Once user presses OK a JOptionPane.showMessageDialog(fram, lines of result). NOTE that multiple lines can be returned in the message box. 
- * Therefore, I must collect the lines to a variable arrayList* of String, to show the variable (i.e the lines) in the Message box. *ArrayList is used
- * because of the need to grow the array (as lines are found). (regular arrays cannot grow nor shwrink)
+ Search feature - I must collect the lines to a variable arrayList* of String, to show the variable (i.e the lines) in the Message box. *ArrayList is used
+ * because of the need to grow the array (as lines many matches may are found). (arrays are fixed in size)
  * 
  * GET FILE button: note that the default file to be read/write is called passwordRepository.txt; NOTE that if the file is not in the given directory path
- * the program automatically creatres the file. If the file is there, the program only re-writes the file.
+ * the program automatically creatres the file. If the file is already created, it will be overwritten.
  */
