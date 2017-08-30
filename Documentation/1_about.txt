@@ -1,11 +1,6 @@
 Project: PassLock v1.0 - A simple password manager app!
 Author: Nuno Spencer, www.nunospencer.com
 
-PASSLOCK V1.0
-
-
-- A simple password manager using Java SWING and Netbeans IDE - 
-
 Are you having a hard time keeping track of all your passwords? Our ever-increasing dependence on the internet 
 and digital devices has simplified many aspects of our lives. However, as we move more of our lives and personal 
 information onto the web it becomes more cumbersome to manage the ever increasing amounts of passwords we must memorize.
