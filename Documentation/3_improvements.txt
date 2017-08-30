@@ -1,3 +1,7 @@
+Project: PassLock v1.0 - A simple password manager app!
+Author: Nuno Spencer, www.nunospencer.com
+
+
 *** SUGGESTED IMPROVEMENTS ***
 
 navigation - add a "File" menu that includes: | "About"
