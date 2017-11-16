@@ -6,5 +6,7 @@ www.nunospencer.com
 
 TOOLS
 IDE: Netbeans 
-Language: Java
-DBMS: none (used file to store password entries)
+Programming Language(s): Java
+
+
+
