@@ -6,7 +6,7 @@
  * www.nunospencer.com
  * www.nunospencer.com/passlockv1
  *
- *Class to test "SEARCH" feature... after many unsucessful tries, this code finally worked
+ *This class tests functionalty of the "search passwords" algorithm
  */
 
 import java.io.File;
@@ -33,25 +33,25 @@ public class Test {
         File file = new File("C:\\Users\\Nuno\\Documents\\my_passwords.txt");   //file to be searched
         Scanner scan = new Scanner(System.in);                                  //Scanner object to get user input
         String accntToken;                                                      //first string token of a line, i.e. "account"
-        String getLine;                                                         //this is the line that contains the password the user is searching. There may be +1 lines thus I have to return them all collected in ArrayList (resizes as needed, contrary to Array which is fixed in size)
-        ArrayList<String> collectedLines = new ArrayList<>();                   //any matched line(s) is collected to an ArrayList of strings (lines)
+        String getLine;                                                         //this is the line that contains the password the user is searching
+        ArrayList<String> collectedLines = new ArrayList<>();                   //any matched line(s) is collected to an ArrayList of strings (lines)...There may be +1 lines thus I have to return them all collected in ArrayList which resizes as needed, rather than using Array which is fixed in size
         
-        String nextOutput;                                                      //line(s) that was collected from ArrayList
-        boolean isFound = false;
-        int i;                                                                  //delineator... finds index of 1st space " " on that line, so we can get to the 1st token of a line i.e. "account"
-        int v = 0;                                                              //counter... everytime an input is matched to a line, the line is collected to ArrayList, v++ ... then pane will also display number of accounts found (i.e. v)
+        String nextOutput;                                                      //line(s) collected from ArrayList
+        boolean isFound = false;                                                //flag
+        int i;                                                                  //delineator... finds index of 1st space " " on that line, so we can get to the 1st string on that line i.e. "account"
+        int v = 0;                                                              //counter... everytime an input is matched to a line, the line is collected to ArrayList and v++ ... (v will be used by dialog box to display number of matches found)
 
         try
         {   
             Scanner scanFile = new Scanner(file);                               //Scanner object to scan file
-            while(scanFile.hasNextLine())                                       //Scanner scans file... until end of file
+            while(scanFile.hasNextLine())                                       //Scanner scans file...line by line until EOF
             {
-                getLine = scanFile.nextLine();                                  //gets a line
-                i = getLine.indexOf(" ");                                       //get index of substring (account) token
-                accntToken = getLine.substring(0, i);                           //gets the account (1st string token in the line, after " ")                        
-                if(userInput.equalsIgnoreCase(accntToken))                      //if given input account equals the account on the line 
+                getLine = scanFile.nextLine();                                  //get each line
+                i = getLine.indexOf(" ");                                       //get index of substring (account) token on the line
+                accntToken = getLine.substring(0, i);                           //save the 1st substring in the line (i.e account) to the variable                        
+                if(userInput.equalsIgnoreCase(accntToken))                      //if given input account matches the account on the line...
                 {     
-                    collectedLines.add(getLine);                                //append the line/s to the ArrayList
+                    collectedLines.add(getLine);                                //collect the line(s) to the ArrayList
                     isFound = true;                                             //flag as found
                     v++;                                                        //increment number of matches found
                 }
@@ -60,17 +60,17 @@ public class Test {
             
             if(isFound)                                                         //if passwords were found, display them as following:
             {
-                ListIterator<String> outputMatches =  collectedLines.listIterator(); //iterator for ArrayList...
+                ListIterator<String> outputMatches =  collectedLines.listIterator();    //iterator for ArrayList...
                 while(outputMatches.hasNext())                                          //while ArrayList is not empty
                 {
-                    nextOutput = (String)outputMatches.next();                          //add found passwords(lines) to the string var to be return
-                    System.out.println(nextOutput);                                     //return/print the lines
+                    nextOutput = (String)outputMatches.next();                          //add found passwords (i.e lines containing the password) to the string 
+                    System.out.println(nextOutput);                                     //print such lines to screen
                 }
                 outputMatches.remove();                                                 //do away with the iterator
                 
-            }else
+            }else                                                                //else no matches found...
             {
-                System.out.println("No match found!");
+                System.out.println("No match found!");                         
             }
         }catch (FileNotFoundException ex) 
         {
