@@ -6,7 +6,7 @@
  * www.nunospencer.com
  * www.nunospencer.com/passlockv1
  *
- *This class tests functionalty of the "search passwords" algorithm
+ *Test searching passwords -w comments- LOTS of them
  */
 
 import java.io.File;
@@ -30,7 +30,7 @@ public class Test {
 
     private static void findPasswords(String userInput)
     {
-        File file = new File("C:\\Users\\Nuno\\Documents\\my_passwords.txt");   //file to be searched
+        //File file = new File("A:\\...");   //file to be searched
         Scanner scan = new Scanner(System.in);                                  //Scanner object to get user input
         String accntToken;                                                      //first string token of a line, i.e. "account"
         String getLine;                                                         //this is the line that contains the password the user is searching
@@ -38,8 +38,8 @@ public class Test {
         
         String nextOutput;                                                      //line(s) collected from ArrayList
         boolean isFound = false;                                                //flag
-        int i;                                                                  //delineator... finds index of 1st space " " on that line, so we can get to the 1st string on that line i.e. "account"
-        int v = 0;                                                              //counter... everytime an input is matched to a line, the line is collected to ArrayList and v++ ... (v will be used by dialog box to display number of matches found)
+        int i;                                                                  //delineator finds index of 1st space " " on that line, so we can get to the 1st string on that line i.e. "account"
+        int v = 0;                                                              //counter everytime an input is matched to a line, the line is collected to ArrayList then v++ ... (v will be used by dialog box to display number of matches found)
 
         try
         {   
@@ -56,17 +56,17 @@ public class Test {
                     v++;                                                        //increment number of matches found
                 }
             }
-            System.out.println(v + " password(s) found for \"" + userInput + "\" :"); //tests to see that search algorithm is working
+            System.out.println(v + " password(s) found for \"" + userInput + "\" :"); // is working?
             
-            if(isFound)                                                         //if passwords were found, display them as following:
+            if(isFound)                                                         //if passwords were found, output
             {
                 ListIterator<String> outputMatches =  collectedLines.listIterator();    //iterator for ArrayList...
-                while(outputMatches.hasNext())                                          //while ArrayList is not empty
+                while(outputMatches.hasNext())                                          //while ArrayList not empty
                 {
-                    nextOutput = (String)outputMatches.next();                          //add found passwords (i.e lines containing the password) to the string 
-                    System.out.println(nextOutput);                                     //print such lines to screen
+                    nextOutput = (String)outputMatches.next();                          //add found passwords/ lines containing password) to the string 
+                    System.out.println(nextOutput);                                     //print lines to screen
                 }
-                outputMatches.remove();                                                 //do away with the iterator
+                outputMatches.remove();                                                 //do away iterator
                 
             }else                                                                //else no matches found...
             {
