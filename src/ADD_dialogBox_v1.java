@@ -22,10 +22,6 @@ import javax.swing.ImageIcon;
 //import java.io.PrintWriter;
 import javax.swing.JOptionPane;
 
-/**
- *
- * @author Peace Infinity
- */
 public class ADD_dialogBox_v1 extends javax.swing.JDialog {
 
     /**
