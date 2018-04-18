@@ -7,7 +7,7 @@ Author: Nuno Spencer, www.nunospencer.com
 *** BUGS ***
 
 
-*************** FIXED BUGS *****************
+**fix ***
 - CREATE, SAVE, and GET file AT RELATIVE USER'S directory "Documents" folder.This is necessary so the app can be distributed. Note that will not work for other language versions of Windows (such as portuguese version "Documentos").
     use code: System.getProperty("user.home") + File.separator + "Documents\\my_passwords.txt";
               - i.e, the directory "user"/Documents directory
